@@ -131,7 +131,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    
        public void setSourceCode(String s, boolean editable){
          this.setText(s);
-         this.setBackground( (editable)? Color.GREEN : Color.RED);
+         this.setBackground(Color.CYAN);
          this.setEditable(editable);  
          this.setEnabled(editable);
          this.getCaret().setVisible(editable);

@@ -74,7 +74,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       private JMenuItem runGo, runStep, runBackstep, runReset, runAssemble, runStop, runPause, runClearBreakpoints, runToggleBreakpoints;
       private JCheckBoxMenuItem settingsLabel, settingsPopupInput, settingsValueDisplayBase, settingsAddressDisplayBase,
               settingsExtended, settingsAssembleOnOpen, settingsAssembleAll, settingsWarningsAreErrors, settingsStartAtMain,
-      		  settingsDelayedBranching, settingsProgramArguments, settingsSelfModifyingCode;
+      		  settingsDelayedBranching, settingsProgramArguments, settingsSelfModifyingCode, settingsToggleDarkmode;
       private JMenuItem settingsExceptionHandler, settingsEditor, settingsHighlighting, settingsMemoryConfiguration;
       private JMenuItem helpHelp, helpAbout;
          
@@ -99,7 +99,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      settingsExtendedAction, settingsAssembleOnOpenAction, settingsAssembleAllAction,
       					settingsWarningsAreErrorsAction, settingsStartAtMainAction, settingsProgramArgumentsAction,
       					settingsDelayedBranchingAction, settingsExceptionHandlerAction, settingsEditorAction,
-      					settingsHighlightingAction, settingsMemoryConfigurationAction, settingsSelfModifyingCodeAction;    
+      					settingsHighlightingAction, settingsMemoryConfigurationAction, settingsSelfModifyingCodeAction,
+                     settingsToggleDarkmodeAction;    
       private Action helpHelpAction, helpAboutAction;
    
    
@@ -442,6 +443,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                									  "View and modify memory segment base addresses for simulated MIPS.",
                									  null,null,
                									  mainUI);
+            settingsToggleDarkmodeAction       = new SettingsToggleDarkmodeAction("Toggle darkmode",
+                                             null,
+                                             "Turns on darkmode (REAL)",
+                                             null, null,
+                                             mainUI);
             helpHelpAction = new HelpHelpAction("Help", 
                                             new ImageIcon(tk.getImage(cs.getResource(Globals.imagesPath+"Help22.png"))),
                									  "Help", new Integer(KeyEvent.VK_H),
@@ -473,8 +479,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          edit.setMnemonic(KeyEvent.VK_E);
          run=new JMenu("Run");
          run.setMnemonic(KeyEvent.VK_R);
-         //window = new JMenu("Window");
-         //window.setMnemonic(KeyEvent.VK_W);
+         window = new JMenu("Window");
+         window.setMnemonic(KeyEvent.VK_W);
          settings = new JMenu("Settings");
          settings.setMnemonic(KeyEvent.VK_S);
          help = new JMenu("Help");
@@ -603,7 +609,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          settingsHighlighting = new JMenuItem(settingsHighlightingAction);
          settingsExceptionHandler = new JMenuItem(settingsExceptionHandlerAction);
          settingsMemoryConfiguration = new JMenuItem(settingsMemoryConfigurationAction);
-      	
+         settingsToggleDarkmode = new JCheckBoxMenuItem(settingsToggleDarkmodeAction);
+         // settingsToggleDarmode.setSelected with a nonsense arugment that doesnt throw an error
+      	//settingsToggleDarkmode.setSelected();
+
          settings.add(settingsLabel);
          settings.add(settingsProgramArguments);
          settings.add(settingsPopupInput);
@@ -623,6 +632,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          settings.add(settingsHighlighting);
          settings.add(settingsExceptionHandler);
          settings.add(settingsMemoryConfiguration);
+         settings.addSeparator();
+         settings.add(settingsToggleDarkmode);
+
       			
          helpHelp = new JMenuItem(helpHelpAction);
          helpHelp.setIcon(new ImageIcon(tk.getImage(cs.getResource(Globals.imagesPath+"Help16.png"))));//"Help16.gif"))));
@@ -636,6 +648,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          menuBar.add(edit);
          menuBar.add(run);
          menuBar.add(settings);
+         menuBar.add(window);
          JMenu toolMenu = new ToolLoader().buildToolsMenu();
          if (toolMenu != null) menuBar.add(toolMenu);
          menuBar.add(help);

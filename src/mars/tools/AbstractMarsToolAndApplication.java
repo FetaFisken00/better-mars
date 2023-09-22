@@ -66,7 +66,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    	
    	// Some GUI settings
       private EmptyBorder emptyBorder = new EmptyBorder(4,4,4,4);
-      private Color backgroundColor = Color.WHITE;
+      private Color backgroundColor = Color.BLACK;
    	
    	
       private int lowMemoryAddress = Memory.dataSegmentBaseAddress;
